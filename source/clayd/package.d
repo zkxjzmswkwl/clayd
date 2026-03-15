@@ -389,48 +389,6 @@ alias Clay_OnHoverFn = extern(C) void function(Clay_ElementId, Clay_PointerData,
 alias Clay_MeasureTextFn = extern(C) Clay_Dimensions function(Clay_StringSlice, Clay_TextElementConfig*, void*);
 alias Clay_QueryScrollOffsetFn = extern(C) Clay_Vector2 function(uint, void*);
 
-uint clayMinMemorySize();
-Clay_Arena clayCreateArenaWithCapacityAndMemory(size_t capacity, void* memory);
-void claySetPointerState(Clay_Vector2 position, bool pointerDown);
-Clay_Context* clayInitialize(Clay_Arena arena, Clay_Dimensions layoutDimensions, Clay_ErrorHandler errorHandler);
-Clay_Context* clayGetCurrentContext();
-void claySetCurrentContext(Clay_Context* context);
-void clayUpdateScrollContainers(bool enableDragScrolling, Clay_Vector2 scrollDelta, float deltaTime);
-Clay_Vector2 clayGetScrollOffset();
-void claySetLayoutDimensions(Clay_Dimensions dimensions);
-void clayBeginLayout();
-Clay_RenderCommandArray clayEndLayout();
-Clay_ElementId clayGetElementId(Clay_String idString);
-Clay_ElementId clayGetElementIdWithIndex(Clay_String idString, uint index);
-Clay_ElementData clayGetElementData(Clay_ElementId id);
-bool clayHovered();
-void clayOnHover(Clay_OnHoverFn onHoverFunction, void* userData);
-bool clayPointerOver(Clay_ElementId elementId);
-Clay_ElementIdArray clayGetPointerOverIds();
-Clay_PointerData clayGetPointerData();
-Clay_ScrollContainerData clayGetScrollContainerData(Clay_ElementId id);
-void claySetMeasureTextFunction(Clay_MeasureTextFn measureTextFunction, void* userData);
-void claySetQueryScrollOffsetFunction(Clay_QueryScrollOffsetFn queryScrollOffsetFunction, void* userData);
-Clay_RenderCommand* clayRenderCommandArrayGet(Clay_RenderCommandArray* array, int index);
-void claySetDebugModeEnabled(bool enabled);
-bool clayIsDebugModeEnabled();
-void claySetCullingEnabled(bool enabled);
-int clayGetMaxElementCount();
-void claySetMaxElementCount(int maxElementCount);
-int clayGetMaxMeasureTextCacheWordCount();
-void claySetMaxMeasureTextCacheWordCount(int maxMeasureTextCacheWordCount);
-void clayResetMeasureTextCache();
-
-void clayOpenElement();
-void clayOpenElementWithId(Clay_ElementId elementId);
-void clayConfigureOpenElement(const Clay_ElementDeclaration* config);
-void clayCloseElement();
-Clay_ElementId clayHashString(Clay_String key, uint seed) nothrow @nogc;
-Clay_ElementId clayHashStringWithOffset(Clay_String key, uint offset, uint seed) nothrow @nogc;
-void clayOpenTextElement(Clay_String text, Clay_TextElementConfig* textConfig);
-Clay_TextElementConfig* clayStoreTextElementConfig(Clay_TextElementConfig config);
-uint clayGetParentElementId() nothrow @nogc;
-
 private extern(C) @system nothrow @nogc
 {
     uint Clay_MinMemorySize();
