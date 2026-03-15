@@ -1,4 +1,6 @@
 module clayd.renderer.clay_sdl_renderer;
+version (clay_sdl3)
+{
 
 import bindbc.sdl;
 import clayd.base;
@@ -211,12 +213,12 @@ void SDL_Clay_RenderClayCommands(Clay_SDL3RendererData* rendererData, Clay_Rende
             const Clay_BorderRenderData* config = &rcmd.renderData.border;
 
             const float minRadius = SDL_min(rect.w, rect.h) / 2.0f;
-            const Clay_CornerRadius clampedRadii = Clay_CornerRadius(
-        topLeft: SDL_min(config.cornerRadius.topLeft, minRadius),
-        topRight: SDL_min(config.cornerRadius.topRight, minRadius),
-        bottomLeft: SDL_min(config.cornerRadius.bottomLeft, minRadius),
-        bottomRight: SDL_min(config.cornerRadius.bottomRight, minRadius)
-            );
+            const Clay_CornerRadius clampedRadii = {
+                SDL_min(config.cornerRadius.topLeft, minRadius),
+                SDL_min(config.cornerRadius.topRight, minRadius),
+                SDL_min(config.cornerRadius.bottomLeft, minRadius),
+                SDL_min(config.cornerRadius.bottomRight, minRadius)
+            };
 
             SDL_SetRenderDrawColorFloat(rendererData.renderer, config.color.r, config.color.g, config.color.b, config
                     .color.a);
@@ -329,4 +331,6 @@ void SDL_Clay_RenderClayCommands(Clay_SDL3RendererData* rendererData, Clay_Rende
             break;
         }
     }
+}
+
 }
