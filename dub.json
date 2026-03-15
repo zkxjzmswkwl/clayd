@@ -1,27 +1,54 @@
 {
-	"authors": [
-		"zkxjzmswkwl"
-	],
-	"copyright": "Copyright © 2026, zkxjzmswkwl",
-	"description": "D bindings to Nic Barker's Clay.",
-	"license": "MIT",
-	"name": "clayd",
-	"sourcePaths": ["source"],
-	"configurations": [
-		{
-			"name": "application",
-			"targetType": "executable",
-			"mainSourceFile": "source/app.d",
-			"preBuildCommands-windows": ["cc -c $PACKAGE_DIR/c/clay.c -o $PACKAGE_DIR/c/clay.o -I$PACKAGE_DIR/c -mno-stack-arg-probe"],
-			"preBuildCommands-posix": ["cc -c $PACKAGE_DIR/c/clay.c -o $PACKAGE_DIR/c/clay.o -I$PACKAGE_DIR/c"],
-			"lflags": ["$PACKAGE_DIR/c/clay.o"]
-		},
-		{
-			"name": "library",
-			"targetType": "library",
-			"preBuildCommands-windows": ["cc -c $PACKAGE_DIR/c/clay.c -o $PACKAGE_DIR/c/clay.o -I$PACKAGE_DIR/c -mno-stack-arg-probe"],
-			"preBuildCommands-posix": ["cc -c $PACKAGE_DIR/c/clay.c -o $PACKAGE_DIR/c/clay.o -I$PACKAGE_DIR/c"],
-			"lflags": ["$PACKAGE_DIR/c/clay.o"]
-		}
-	]
+  "authors": ["zkxjzmswkwl", "Sergei Giniatulin"],
+  "copyright": "Copyright © 2026, zkxjzmswkwl",
+  "description": "D bindings to Nic Barker's Clay.",
+  "license": "MIT",
+  "name": "clayd",
+  "sourcePaths": ["source"],
+  "configurations": [
+    {
+      "name": "application",
+      "targetType": "executable",
+      "mainSourceFile": "source/app.d",
+      "preBuildCommands-windows": [
+        "cc -c $PACKAGE_DIR/c/clay.c -o $PACKAGE_DIR/c/clay.o -I$PACKAGE_DIR/c -mno-stack-arg-probe"
+      ],
+      "preBuildCommands-posix": [
+        "cc -c $PACKAGE_DIR/c/clay.c -o $PACKAGE_DIR/c/clay.o -I$PACKAGE_DIR/c"
+      ],
+      "lflags": ["$PACKAGE_DIR/c/clay.o"]
+    },
+    {
+      "name": "library",
+      "targetType": "library",
+      "preBuildCommands-windows": [
+        "cc -c $PACKAGE_DIR/c/clay.c -o $PACKAGE_DIR/c/clay.o -I$PACKAGE_DIR/c -mno-stack-arg-probe"
+      ],
+      "preBuildCommands-posix": [
+        "cc -c $PACKAGE_DIR/c/clay.c -o $PACKAGE_DIR/c/clay.o -I$PACKAGE_DIR/c"
+      ],
+      "lflags": ["$PACKAGE_DIR/c/clay.o"]
+    },
+    {
+      "name": "SDL3",
+      "targetType": "library",
+      "dependencies": {
+        "bindbc-sdl": "~>2.3.4"
+      },
+      "libs": ["SDL3", "SDL3_image", "SDL3_ttf"],
+      "versions": ["clay_sdl3", "SDL_3_4", "SDL_TTF_3_2_2", "SDL_Image_3_2"],
+      "subConfigurations": {
+        "bindbc-sdl": "staticBC"
+      },
+      "preBuildCommands-windows": [
+        "cc -c $PACKAGE_DIR/c/clay.c -o $PACKAGE_DIR/c/clay.o -I$PACKAGE_DIR/c -mno-stack-arg-probe"
+      ],
+      "preBuildCommands-posix": [
+        "cc -c $PACKAGE_DIR/c/clay.c -o $PACKAGE_DIR/c/clay.o -I$PACKAGE_DIR/c"
+      ],
+      "lflags": ["$PACKAGE_DIR/c/clay.o"],
+      "lflags-linux": ["-rpath=$$ORIGIN"],
+      "lflags-osx": ["-rpath", "@executable_path/"]
+    }
+  ]
 }
