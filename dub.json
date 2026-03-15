@@ -1,0 +1,27 @@
+{
+	"authors": [
+		"zkxjzmswkwl"
+	],
+	"copyright": "Copyright © 2026, zkxjzmswkwl",
+	"description": "D bindings to Nic Barker's Clay.",
+	"license": "MIT",
+	"name": "clayd",
+	"sourcePaths": ["source"],
+	"configurations": [
+		{
+			"name": "application",
+			"targetType": "executable",
+			"mainSourceFile": "source/app.d",
+			"preBuildCommands-windows": ["cc -c $PACKAGE_DIR/c/clay.c -o $PACKAGE_DIR/c/clay.o -I$PACKAGE_DIR/c -mno-stack-arg-probe"],
+			"preBuildCommands-posix": ["cc -c $PACKAGE_DIR/c/clay.c -o $PACKAGE_DIR/c/clay.o -I$PACKAGE_DIR/c"],
+			"lflags": ["$PACKAGE_DIR/c/clay.o"]
+		},
+		{
+			"name": "library",
+			"targetType": "library",
+			"preBuildCommands-windows": ["cc -c $PACKAGE_DIR/c/clay.c -o $PACKAGE_DIR/c/clay.o -I$PACKAGE_DIR/c -mno-stack-arg-probe"],
+			"preBuildCommands-posix": ["cc -c $PACKAGE_DIR/c/clay.c -o $PACKAGE_DIR/c/clay.o -I$PACKAGE_DIR/c"],
+			"lflags": ["$PACKAGE_DIR/c/clay.o"]
+		}
+	]
+}

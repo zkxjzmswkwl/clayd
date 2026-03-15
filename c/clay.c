@@ -1,0 +1,5 @@
+#define CLAY_DISABLE_SIMD 1
+#define CLAY_IMPLEMENTATION
+#include "clay.h"
+
+uint8_t CLAY__ELEMENT_DEFINITION_LATCH;

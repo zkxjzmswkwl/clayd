@@ -1,0 +1,16 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/clay-d
+clay-d.so
+clay-d.dylib
+clay-d.dll
+clay-d.a
+clay-d.lib
+clay-d-test-*
+*.exe
+*.pdb
+*.o
+*.obj
+*.lst
