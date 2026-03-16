@@ -13,8 +13,11 @@
       "preBuildCommands-windows": [
         "cc -c $PACKAGE_DIR/c/clay.c -o $PACKAGE_DIR/c/clay.o -I$PACKAGE_DIR/c -mno-stack-arg-probe"
       ],
-      "preBuildCommands-posix": [
+      "preBuildCommands-linux": [
         "cc -c $PACKAGE_DIR/c/clay.c -o $PACKAGE_DIR/c/clay.o -I$PACKAGE_DIR/c"
+      ],
+      "preBuildCommands-osx": [
+        "cc -c $PACKAGE_DIR/c/clay.c -o $PACKAGE_DIR/c/clay.o -I$PACKAGE_DIR/c -arch arm64 -arch x86_64"
       ],
       "lflags": ["$PACKAGE_DIR/c/clay.o"]
     },
@@ -24,8 +27,11 @@
       "preBuildCommands-windows": [
         "cc -c $PACKAGE_DIR/c/clay.c -o $PACKAGE_DIR/c/clay.o -I$PACKAGE_DIR/c -mno-stack-arg-probe"
       ],
-      "preBuildCommands-posix": [
+      "preBuildCommands-linux": [
         "cc -c $PACKAGE_DIR/c/clay.c -o $PACKAGE_DIR/c/clay.o -I$PACKAGE_DIR/c"
+      ],
+      "preBuildCommands-osx": [
+        "cc -c $PACKAGE_DIR/c/clay.c -o $PACKAGE_DIR/c/clay.o -I$PACKAGE_DIR/c -arch arm64 -arch x86_64"
       ],
       "lflags": ["$PACKAGE_DIR/c/clay.o"]
     },
@@ -43,8 +49,11 @@
       "preBuildCommands-windows": [
         "cc -c $PACKAGE_DIR/c/clay.c -o $PACKAGE_DIR/c/clay.o -I$PACKAGE_DIR/c -mno-stack-arg-probe"
       ],
-      "preBuildCommands-posix": [
+      "preBuildCommands-linux": [
         "cc -c $PACKAGE_DIR/c/clay.c -o $PACKAGE_DIR/c/clay.o -I$PACKAGE_DIR/c"
+      ],
+      "preBuildCommands-osx": [
+        "cc -c $PACKAGE_DIR/c/clay.c -o $PACKAGE_DIR/c/clay.o -I$PACKAGE_DIR/c -arch arm64 -arch x86_64"
       ],
       "lflags": ["$PACKAGE_DIR/c/clay.o"],
       "lflags-linux": ["-rpath=$$ORIGIN"],
