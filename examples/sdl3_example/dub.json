@@ -10,7 +10,7 @@
   },
   "libs": ["SDL3", "SDL3_image", "SDL3_ttf"],
   "versions": ["SDL_3_4", "SDL_Image_3_2", "SDL_TTF_3_2_2"],
-  "dflags": ["-mcpu=native", "-betterC"],
+  "dflags": ["-mcpu=native", "-betterC", "-i"],
   "authors": ["Sergei Giniatulin"],
   "copyright": "Copyright © 2026, Sergei Giniatulin",
   "license": "MIT",

@@ -55,7 +55,7 @@
       "preBuildCommands-osx": [
         "cc -c $PACKAGE_DIR/c/clay.c -o $PACKAGE_DIR/c/clay.o -I$PACKAGE_DIR/c -arch arm64 -arch x86_64"
       ],
-      "dflags": ["-mcpu=native", "-boundscheck=off", "-betterC"],
+      "dflags": ["-mcpu=native", "-boundscheck=off"],
       "lflags": ["$PACKAGE_DIR/c/clay.o"],
       "lflags-linux": ["-rpath=$$ORIGIN"],
       "lflags-osx": ["-rpath", "@executable_path/"]
