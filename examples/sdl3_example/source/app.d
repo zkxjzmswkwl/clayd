@@ -1,13 +1,13 @@
 import clayd;
 import core.stdc.stdlib : malloc, free;
-import std.stdio;
+import core.stdc.stdio : printf;
 import bindbc.sdl;
 
 extern (C) void handleError(Clay_ErrorData data)
 {
     if (data.errorText.chars && data.errorText.length > 0)
     {
-        writeln("error: ", data.errorText.length, " chars");
+        printf("error: %d chard\n", data.errorText.length);
     }
 }
 
@@ -21,7 +21,7 @@ extern (C) Clay_Dimensions measureText(Clay_StringSlice text, Clay_TextElementCo
 }
 
 // no renderer hooked up - just here to test layout engine functionality
-void main()
+extern (C) void main()
 {
     uint size = clayMinMemorySize();
     void* mem = malloc(size);
@@ -68,17 +68,34 @@ void main()
     });
 
     Clay_RenderCommandArray commands = clayEndLayout();
-    writeln("clay's layout engine produced ", commands.length, " render commands");
+    printf("clay's layout engine produced %d render commands\n", commands.length);
 
     SDL_Init(SDL_INIT_VIDEO);
     TTF_Init();
 
-    auto window = SDL_CreateWindow("YouSaw", 1024, 768, SDL_WINDOW_RESIZABLE);
+    auto window = SDL_CreateWindow("sdl3_renderer", 1024, 768, SDL_WINDOW_RESIZABLE);
     auto renderer = SDL_CreateRenderer(window, null);
     auto fonts = TTF_OpenFont("Arial Unicode.ttf", 20);
     auto textEngine = TTF_CreateRendererTextEngine(renderer);
 
     SDL_SetEventEnabled(SDL_EVENT_DROP_FILE, true);
     auto clay_renderer = Clay_SDL3RendererData(renderer, textEngine, &fonts);
-    SDL_Clay_RenderClayCommands(&clay_renderer, commands);
+    bool running = true;
+    SDL_Event event;
+
+    while (running)
+    {
+        while (SDL_PollEvent(&event))
+        {
+            if (event.type == SDL_EVENT_QUIT)
+            {
+                running = false;
+            }
+        }
+
+        SDL_RenderClear(renderer);
+        SDL_Clay_RenderClayCommands(&clay_renderer, commands);
+
+        SDL_RenderPresent(renderer);
+    }
 }
