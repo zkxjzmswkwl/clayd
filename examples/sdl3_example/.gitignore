@@ -1,0 +1,17 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/sdl3_example
+sdl3_example.so
+sdl3_example.dylib
+sdl3_example.dll
+libsdl3_example.a
+sdl3_example.a
+sdl3_example.lib
+sdl3_example-test-*
+*.exe
+*.pdb
+*.o
+*.obj
+*.lst
