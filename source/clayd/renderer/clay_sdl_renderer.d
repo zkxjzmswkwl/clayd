@@ -15,6 +15,21 @@ version (clay_sdl3)
         return a > b ? a : b;
     }
 
+    private float colorChannelToUnitFloat(float channel)
+    {
+        return SDL_min(SDL_max(channel / 255.0f, 0.0f), 1.0f);
+    }
+
+    private SDL_FColor clayColorToSDLColor(Clay_Color color)
+    {
+        return SDL_FColor(
+            colorChannelToUnitFloat(color.r),
+            colorChannelToUnitFloat(color.g),
+            colorChannelToUnitFloat(color.b),
+            colorChannelToUnitFloat(color.a)
+        );
+    }
+
     struct Clay_SDL3RendererData
     {
         SDL_Renderer* renderer;
@@ -28,9 +43,7 @@ version (clay_sdl3)
 extern (C):
     void SDL_Clay_RenderFillRoundedRect(Clay_SDL3RendererData* rendererData, const SDL_FRect rect, const float cornerRadius, const Clay_Color _color)
     {
-        const SDL_FColor color = {
-            _color.r / 255.0f, _color.g / 255.0f, _color.b / 255.0f, _color.a / 255.0f
-        };
+        const SDL_FColor color = clayColorToSDLColor(_color);
 
         int indexCount = 0;
         int vertexCount = 0;
@@ -153,7 +166,8 @@ extern (C):
 
     void SDL_Clay_RenderArc(Clay_SDL3RendererData* rendererData, const SDL_FPoint center, const float radius, const float startAngle, const float endAngle, const float thickness, const Clay_Color color)
     {
-        SDL_SetRenderDrawColorFloat(rendererData.renderer, color.r, color.g, color.b, color.a);
+        const SDL_FColor drawColor = clayColorToSDLColor(color);
+        SDL_SetRenderDrawColorFloat(rendererData.renderer, drawColor.r, drawColor.g, drawColor.b, drawColor.a);
 
         const float radStart = startAngle * (SDL_PI_F / 180.0f);
         const float radEnd = endAngle * (SDL_PI_F / 180.0f);
@@ -198,8 +212,8 @@ extern (C):
             case Clay_RenderCommandType.renderCommandTypeRectangle:
                 auto config = &rcmd.renderData.rectangle;
                 SDL_SetRenderDrawBlendMode(rendererData.renderer, SDL_BLENDMODE_BLEND);
-                SDL_SetRenderDrawColorFloat(rendererData.renderer, config.backgroundColor.r, config.backgroundColor.g, config
-                        .backgroundColor.b, config.backgroundColor.a);
+                const SDL_FColor bgColor = clayColorToSDLColor(config.backgroundColor);
+                SDL_SetRenderDrawColorFloat(rendererData.renderer, bgColor.r, bgColor.g, bgColor.b, bgColor.a);
 
                 if (config.cornerRadius.topLeft > 0)
                 {
@@ -218,8 +232,8 @@ extern (C):
                 TTF_SetFontSize(font, cast(int) config.fontSize);
                 TTF_Text* text = TTF_CreateText(rendererData.textEngine, font, config.stringContents.chars, cast(
                         size_t) config.stringContents.length);
-                TTF_SetTextColorFloat(text, config.textColor.r, config.textColor.g, config.textColor.b, config
-                        .textColor.a);
+                const SDL_FColor textColor = clayColorToSDLColor(config.textColor);
+                TTF_SetTextColorFloat(text, textColor.r, textColor.g, textColor.b, textColor.a);
                 TTF_DrawRendererText(text, rect.x, rect.y);
                 TTF_DestroyText(text);
                 break;
@@ -235,8 +249,8 @@ extern (C):
                     SDL_min(config.cornerRadius.bottomRight, minRadius)
                 };
 
-                SDL_SetRenderDrawColorFloat(rendererData.renderer, config.color.r, config.color.g, config.color.b, config
-                        .color.a);
+                const SDL_FColor borderColor = clayColorToSDLColor(config.color);
+                SDL_SetRenderDrawColorFloat(rendererData.renderer, borderColor.r, borderColor.g, borderColor.b, borderColor.a);
 
                 // Left edge
                 if (config.width.left > 0)

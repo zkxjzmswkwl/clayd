@@ -20,7 +20,6 @@ extern (C) Clay_Dimensions measureText(Clay_StringSlice text, Clay_TextElementCo
     return d;
 }
 
-// no renderer hooked up - just here to test layout engine functionality
 extern (C) void main()
 {
     uint size = clayMinMemorySize();
@@ -48,9 +47,9 @@ extern (C) void main()
     Clay_ElementDeclaration rootDecl = clayElementDeclaration();
     rootDecl.layout.sizing.width = claySizingGrow();
     rootDecl.layout.sizing.height = claySizingGrow();
-    rootDecl.layout.padding = clayPaddingAll(16);
+    // rootDecl.layout.padding = clayPaddingAll(16);
     rootDecl.layout.childGap = 16;
-    rootDecl.backgroundColor = clayColor(250, 250, 255);
+    rootDecl.backgroundColor = clayColor(28, 24, 20);
 
     clayElementScope(clayId("Root"), rootDecl, {
         Clay_ElementDeclaration sideDecl = clayElementDeclaration();
@@ -58,11 +57,11 @@ extern (C) void main()
         sideDecl.layout.sizing.width = claySizingFixed(200);
         sideDecl.layout.sizing.height = claySizingGrow();
         sideDecl.layout.padding = clayPaddingAll(16);
-        sideDecl.backgroundColor = clayColor(224, 215, 210);
+        sideDecl.backgroundColor = clayColor(56, 27, 52);
         clayElementScope(clayId("Sidebar"), sideDecl, {
             Clay_TextElementConfig textCfg;
             textCfg.fontSize = 24;
-            textCfg.textColor = clayColor(0, 0, 0);
+            textCfg.textColor = clayColor(255, 255, 255);
             clayText(clayString("ClayD"), *clayTextConfig(textCfg));
         });
     });
