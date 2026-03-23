@@ -69,14 +69,15 @@ extern (C):
             free(iptr);
         }
 
-        vertices[vertexCount++] = SDL_Vertex(SDL_FPoint(rect.x + clampedRadius, rect.y + clampedRadius), color, SDL_FPoint(
-                0, 0));
-        vertices[vertexCount++] = SDL_Vertex(SDL_FPoint(rect.x + rect.w - clampedRadius, rect.y + clampedRadius), color, SDL_FPoint(
-                1, 0));
-        vertices[vertexCount++] = SDL_Vertex(SDL_FPoint(rect.x + rect.w - clampedRadius, rect.y + rect.h - clampedRadius), color, SDL_FPoint(
-                1, 1));
-        vertices[vertexCount++] = SDL_Vertex(SDL_FPoint(rect.x + clampedRadius, rect.y + rect.h - clampedRadius), color, SDL_FPoint(
-                0, 1));
+        float left   = rect.x + clampedRadius;
+        float right  = rect.x + rect.w - clampedRadius;
+        float top    = rect.y + clampedRadius;
+        float bottom = rect.y + rect.h - clampedRadius;
+
+        vertices[vertexCount++] = SDL_Vertex(SDL_FPoint(left,  top   ), color, SDL_FPoint(0, 0));
+        vertices[vertexCount++] = SDL_Vertex(SDL_FPoint(right, top   ), color, SDL_FPoint(1, 0));
+        vertices[vertexCount++] = SDL_Vertex(SDL_FPoint(right, bottom), color, SDL_FPoint(1, 1));
+        vertices[vertexCount++] = SDL_Vertex(SDL_FPoint(left,  bottom), color, SDL_FPoint(0, 1));
 
         indices[indexCount++] = 0;
         indices[indexCount++] = 1;
