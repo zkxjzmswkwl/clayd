@@ -41,10 +41,9 @@
       "dependencies": {
         "bindbc-sdl": "~>2.3.4"
       },
-      "libs": ["SDL3", "SDL3_image", "SDL3_ttf"],
       "versions": ["clay_sdl3", "SDL_3_4", "SDL_TTF_3_2_2", "SDL_Image_3_2"],
       "subConfigurations": {
-        "bindbc-sdl": "staticBC"
+        "bindbc-sdl": "dynamic"
       },
       "preBuildCommands-windows": [
         "cc -c $PACKAGE_DIR/c/clay.c -o $PACKAGE_DIR/c/clay.o -I$PACKAGE_DIR/c -mno-stack-arg-probe"

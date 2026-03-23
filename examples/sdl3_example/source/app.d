@@ -1,6 +1,7 @@
 import clayd;
 import core.stdc.stdlib : malloc, free;
 import core.stdc.stdio : printf;
+import bindbc.loader;
 import bindbc.sdl;
 
 extern (C) void handleError(Clay_ErrorData data)
@@ -22,6 +23,9 @@ extern (C) Clay_Dimensions measureText(Clay_StringSlice text, Clay_TextElementCo
 
 extern (C) void main()
 {
+    if (loadSDL() != LoadMsg.success || loadSDLImage() != LoadMsg.success || loadSDLTTF() != LoadMsg.success)
+        return;
+
     uint size = clayMinMemorySize();
     void* mem = malloc(size);
     if (!mem)
